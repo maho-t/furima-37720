@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+
+  has_many :items
  
   validates :nickname, presence: true
   with_options presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: 'is invalid. Input full-width characters' } do

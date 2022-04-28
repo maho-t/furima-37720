@@ -4,6 +4,8 @@
   </header>
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
+
+    <%# 今後の学習のため：部分テンプレートへの展開 %>
     <%# <%= render partial: "form", locals: {item: @item} %>
 
     <%= form_with model: @item, local: true do |f| %>
@@ -139,7 +141,7 @@
       <div class="sell-btn-contents">
         <%= form_with model: @item, local: true do |f| %>
           <%= f.submit "出品する", class:"sell-btn" %>
-          <%=link_to 'もどる', root_path, class:"back-btn" %>
+          <%=link_to 'もどる', root_path, method: :get, class:"back-btn" %>
         <% end %>
       </div>
       <%# /下部ボタン %>

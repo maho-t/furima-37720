@@ -36,6 +36,13 @@ class ItemsController < ApplicationController
     end
   end
 
+  def destroy
+    item = Item.find(params[:id])
+    if item.destroy
+      redirect_to root_path
+    end
+  end
+
   private
   def item_params
     params.require(:item).permit(:name, :text, :category_id, :status_id, :charge_id, :prefecture_id, :delivery_days_id, :price, :image, user_ids: [] ).merge(user_id: current_user.id)

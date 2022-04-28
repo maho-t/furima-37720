@@ -1,3 +1,6 @@
+<%# cssは商品出品のものを併用しています。
+app/assets/stylesheets/items/new.css %>
+
 <div class="items-sell-contents">
   <header class="items-sell-header">
     <%= link_to image_tag('furima-logo-color.png' , size: '185x50'), "/" %>
@@ -136,12 +139,12 @@
       </div>
       <%# /注意書き %>
       
-
+    
       <%# 下部ボタン %>
       <div class="sell-btn-contents">
         <%= form_with model: @item, local: true do |f| %>
-          <%= f.submit "出品する", class:"sell-btn" %>
-          <%=link_to 'もどる', root_path, method: :get, class:"back-btn" %>
+          <%= f.submit "変更する" ,class:"sell-btn" %>
+          <%=link_to 'もどる', item_path(@item.id), method: :get, class:"back-btn" %>
         <% end %>
       </div>
       <%# /下部ボタン %>

@@ -30,7 +30,7 @@ RSpec.describe PurchaseOrder, type: :model do
         expect(@purchase_order.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
       end
       it 'prefectureを選択していないと保存できないこと' do
-        @purchase_order.prefecture_id = 0
+        @purchase_order.prefecture_id = 1
         @purchase_order.valid?
         expect(@purchase_order.errors.full_messages).to include("Prefecture can't be blank")
       end
@@ -47,17 +47,17 @@ RSpec.describe PurchaseOrder, type: :model do
       it 'phone_numberが空だと保存できないこと' do
         @purchase_order.phone_number = ''
         @purchase_order.valid?
-        expect(@purchase_order.errors.full_messages).to include("Phone number can't be blank", "Phone number Phone number is too short, Phone number is invalid. Input only number")
+        expect(@purchase_order.errors.full_messages).to include("Phone number can't be blank", "Phone number is too short, Phone number is invalid. Input only number")
       end
       it 'phone_numberが半角数字でないと保存できないこと' do
         @purchase_order.phone_number = '１２３４５６７８９０１'
         @purchase_order.valid?
-        expect(@purchase_order.errors.full_messages).to include("Phone number Phone number is too short, Phone number is invalid. Input only number")
+        expect(@purchase_order.errors.full_messages).to include("Phone number is too short, Phone number is invalid. Input only number")
       end
       it 'phone_numberは10桁以上11桁以内の半角数字でないと保存できないこと' do
         @purchase_order.phone_number = '123456789'
         @purchase_order.valid?
-        expect(@purchase_order.errors.full_messages).to include("Phone number Phone number is too short, Phone number is invalid. Input only number")
+        expect(@purchase_order.errors.full_messages).to include("Phone number is too short, Phone number is invalid. Input only number")
       end
     end
   end

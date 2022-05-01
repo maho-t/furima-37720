@@ -1,6 +1,6 @@
 class PurchaseOrder
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :municipality, :house_number, :building, :phone_number
+  attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :municipality, :house_number, :building, :phone_number, :token
 
   with_options presence: true do
     validates :user_id
@@ -12,6 +12,7 @@ class PurchaseOrder
   end
   validates :prefecture_id, numericality: {other_than: 1, message: "can't be blank"}
   validates :phone_number, numericality: { greater_than_or_equal_to: 10, message: "is too short" }
+  validates :token, presence: true
 
   def save
     purchase = Purchase.create(item_id: item_id, user_id: user_id)

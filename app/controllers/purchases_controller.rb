@@ -5,6 +5,9 @@ class PurchasesController < ApplicationController
     @item = Item.find(params[:item_id])
     @purchase = Purchase.new
     @purchase_order = PurchaseOrder.new
+    if @item.user_id = current_user.id || @item.purchase != nil
+      redirect_to root_path
+    end
   end
 
   def create

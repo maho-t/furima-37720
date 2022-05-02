@@ -23,7 +23,7 @@ RSpec.describe PurchaseOrder, type: :model do
       it 'postal_codeが空だと保存できないこと' do
         @purchase_order.postal_code = ''
         @purchase_order.valid?
-        expect(@purchase_order.errors.full_messages).to include("Postal code can't be blank", "Postal code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@purchase_order.errors.full_messages).to include("Postal code can't be blank")
       end
       it 'postal_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
         @purchase_order.postal_code = '1234567'
@@ -48,7 +48,7 @@ RSpec.describe PurchaseOrder, type: :model do
       it 'phone_numberが空だと保存できないこと' do
         @purchase_order.phone_number = ''
         @purchase_order.valid?
-        expect(@purchase_order.errors.full_messages).to include("Phone number can't be blank", "Phone number is too short", "Phone number is invalid. Input only number")
+        expect(@purchase_order.errors.full_messages).to include("Phone number can't be blank")
       end
       it 'phone_numberが半角数字でないと保存できないこと' do
         @purchase_order.phone_number = '１２３４５６７８９０１'

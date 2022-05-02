@@ -6,6 +6,7 @@ RSpec.describe PurchaseOrder, type: :model do
       @user = FactoryBot.create(:user)
       @item = FactoryBot.create(:item)
       @purchase_order = FactoryBot.build(:purchase_order, user_id: @user, item_id: @item)
+      sleep 0.1
     end
 
     context '内容に問題ない場合' do
@@ -22,12 +23,12 @@ RSpec.describe PurchaseOrder, type: :model do
       it 'postal_codeが空だと保存できないこと' do
         @purchase_order.postal_code = ''
         @purchase_order.valid?
-        expect(@purchase_order.errors.full_messages).to include("Postal code can't be blank", "Postal code is invalid. Include hyphen(-)")
+        expect(@purchase_order.errors.full_messages).to include("Postal code can't be blank", "Postal code is invalid. Enter it as follows (e.g. 123-4567)")
       end
       it 'postal_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
         @purchase_order.postal_code = '1234567'
         @purchase_order.valid?
-        expect(@purchase_order.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
+        expect(@purchase_order.errors.full_messages).to include("Postal code is invalid. Enter it as follows (e.g. 123-4567)")
       end
       it 'prefectureを選択していないと保存できないこと' do
         @purchase_order.prefecture_id = 1
@@ -47,17 +48,22 @@ RSpec.describe PurchaseOrder, type: :model do
       it 'phone_numberが空だと保存できないこと' do
         @purchase_order.phone_number = ''
         @purchase_order.valid?
-        expect(@purchase_order.errors.full_messages).to include("Phone number can't be blank", "Phone number is too short, Phone number is invalid. Input only number")
+        expect(@purchase_order.errors.full_messages).to include("Phone number can't be blank", "Phone number is invalid. Phone number is too short, Input only number")
       end
       it 'phone_numberが半角数字でないと保存できないこと' do
         @purchase_order.phone_number = '１２３４５６７８９０１'
         @purchase_order.valid?
-        expect(@purchase_order.errors.full_messages).to include("Phone number is too short, Phone number is invalid. Input only number")
+        expect(@purchase_order.errors.full_messages).to include("Phone number is invalid. Phone number is too short, Input only number")
       end
       it 'phone_numberは10桁以上11桁以内の半角数字でないと保存できないこと' do
         @purchase_order.phone_number = '123456789'
         @purchase_order.valid?
-        expect(@purchase_order.errors.full_messages).to include("Phone number is too short, Phone number is invalid. Input only number")
+        expect(@purchase_order.errors.full_messages).to include("Phone number is invalid. Phone number is too short, Input only number")
+      end
+      it 'tokenが空では登録できないこと' do
+        @purchase_order.token = nil
+        @purchase_order.valid?
+        expect(@purchase_order.errors.full_messages).to include("Token can't be blank")
       end
     end
   end

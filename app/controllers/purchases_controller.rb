@@ -3,6 +3,9 @@ class PurchasesController < ApplicationController
   before_action :set_purchase, only: [:index, :create]
 
   def index
+    if @item.user_id = current_user.id || @item.purchase != nil
+      redirect_to root_path
+    end
     @purchase_order = PurchaseOrder.new
   end
 

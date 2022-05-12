@@ -125,5 +125,24 @@
       </p>
     </div>
     <%# /注意書き %>
-    
+
+    <% if local_assigns[:edit_flag].present? %>
+      <%# 下部ボタン %>
+      <div class="sell-btn-contents">
+        <%= form_with model: @item, local: true do |f| %>
+          <%= f.submit "変更する" ,class:"sell-btn" %>
+          <%=link_to 'もどる', item_path(@item.id), method: :get, class:"back-btn" %>
+        <% end %>
+      </div>
+      <%# /下部ボタン %>
+    <% else %>
+      <%# 下部ボタン %>
+      <div class="sell-btn-contents">
+        <%= form_with model: @item, local: true do |f| %>
+          <%= f.submit "出品する", class:"sell-btn" %>
+          <%=link_to 'もどる', root_path, method: :get, class:"back-btn" %>
+        <% end %>
+      </div>
+      <%# /下部ボタン %>
+    <% end %>
   <% end %>
